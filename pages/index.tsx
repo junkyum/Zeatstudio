@@ -1,5 +1,5 @@
 import WithHead from "@/components/layout/withHead";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, spring } from "framer-motion";
 import Main from "@/components/home/main";
 import Popup from "@/components/home/popup";
@@ -7,7 +7,7 @@ import styles from "@/styles/main.module.css";
 import { time } from "console";
 
 export default function Home() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [menuOpen, setMenuOpen] = useState(false);
   const [popup, setPopup] = useState(false);
   const [pageMove, setPageMove] = useState(false);
@@ -15,6 +15,9 @@ export default function Home() {
   const show = {
     opacity: 1,
     display: "block",
+    transition: {
+      delay: 0.2,
+    },
   };
   const hide = {
     opacity: 0,
@@ -78,7 +81,6 @@ export default function Home() {
             <motion.span
               className="h-8 self-center font-poppins_semi text-2xl hidden mix-blend-overlay text-white"
               animate={menuOpen ? show : hide}
-              transition={{ delay: menuOpen ? 0.2 : 0 }}
             >
               Studio Infomation & Contact Details
             </motion.span>
