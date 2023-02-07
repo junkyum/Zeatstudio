@@ -11,7 +11,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [popup, setPopup] = useState(false);
   const [pageMove, setPageMove] = useState(false);
-
   const show = {
     opacity: 1,
     display: "block",
@@ -75,7 +74,7 @@ export default function Home() {
               setMenuOpen(false);
             }}
             onClick={(e) => {
-              setPopup(true);
+              setPage(page + 1);
             }}
           >
             <motion.span
@@ -90,7 +89,7 @@ export default function Home() {
 
       <Main page={page} setPage={setPage} />
 
-      <div className="font-poppins  text-white flex justify-between absolute inset-x-0 bottom-0">
+      <div className="font-poppins text-white flex justify-between absolute inset-x-0 bottom-0">
         <p className="text-base ml-71 mb-60">© ZEAT Corp.</p>
         <p className={`text-2xl mb-56 mr-[344px] ${page == 0 ? "" : "hidden"}`}>
           Front-end professional team

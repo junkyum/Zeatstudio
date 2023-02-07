@@ -1,9 +1,8 @@
-import {
-  motion,
-  animationControls,
-  useAnimation,
-  useAnimationControls,
-} from "framer-motion";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+
+import "@/components/util/language";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 export default function Main({
   page,
@@ -12,21 +11,36 @@ export default function Main({
   page: number;
   setPage(page: number): void;
 }) {
+  const [t, i18n] = useTranslation();
   const textAppearance = {
     hidden: {
       opacity: 0,
-      y: -20,
+      y: 20,
     },
     visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
+      opacity: [0, 1],
+      y: [20, 0],
       transition: {
-        delay: i * 0.4,
+        delay: 0.5 + i * 0.4,
         duration: 0.5,
       },
     }),
   };
+  const barAppearance = {
+    left: [0, 1104, 0],
+    transition: { type: "spring", bounce: 0.4, duration: 1 },
+  };
   const textControl = useAnimationControls();
+  const barControl = useAnimationControls();
+  const pageChange = (page: number) => {
+    barControl.start(barAppearance);
+    textControl.start(textAppearance.visible);
+    setPage(page);
+  };
+  useEffect(() => {
+    barControl.start(barAppearance);
+    textControl.start(textAppearance.visible);
+  }, [barControl, textControl, false]);
   return (
     <>
       <div
@@ -73,107 +87,43 @@ export default function Main({
           }`}
         >
           <motion.p
-            className={`self-end ${page == 1 ? "visible" : "hidden"}`}
-            initial="hidden"
+            className={`self-end whitespace-pre`}
+            animate={textControl}
+            variants={textAppearance}
+            onClick={() => {
+              pageChange(2);
+            }}
+            custom={1}
           >
-            We create a never-ending
-            <br />
-            new waves of interactive.
-          </motion.p>
-          <motion.p className={`self-end ${page == 2 ? "visible" : "hidden"}`}>
-            Create design harmony
-            <br />
-            between objects with code.
-          </motion.p>
-          <motion.p className={`self-end ${page == 3 ? "visible" : "hidden"}`}>
-            We will move forward
-            <br />
-            together as your reliable
-            <br />
-            development partner.
+            {t(`page_title_${page}`)}
           </motion.p>
         </div>
-        <div className={`w-full mt-40 flex`}>
+        <div className={`w-full mt-40 relative`}>
           <motion.div
-            className="bg-white w-[152px] h-0.5 rounded"
+            className="bg-white w-[152px] h-0.5 rounded absolute"
             layout
-            transition={{}}
+            animate={barControl}
           />
         </div>
         <div className="font-poppins text-2xl text-white">
-          <p
-            className={` flex-center mt-53 ml-[160px] ${
-              page == 1 ? "visible" : "hidden"
+          <motion.p
+            className={`flex-center mt-53 whitespace-pre ${
+              page == 3 ? "ml-[109px]" : "ml-[160px]"
             }`}
+            animate={textControl}
+            variants={textAppearance}
+            custom={1.5}
           >
-            Never stop
-            <br />
-            for creation.
-          </p>
-          <p
-            className={`flex-center mt-53 ml-[160px] ${
-              page == 2 ? "visible" : "hidden"
-            }`}
+            {t(`page_sub_title_${page}`)}
+          </motion.p>
+          <motion.p
+            className={`text-base flex-center mt-40 ml-[109px] whitespace-pre`}
+            animate={textControl}
+            variants={textAppearance}
+            custom={2}
           >
-            Rhythmic
-            <br />
-            Objects Harmony
-          </p>
-          <p
-            className={`flex-center mt-53 ml-[109px] ${
-              page == 3 ? "visible" : "hidden"
-            }`}
-          >
-            Hope to be
-            <br />
-            your partner
-          </p>
-          <p
-            className={`text-base flex-center mt-40 ml-[109px] ${
-              page == 1 ? "visible" : "hidden"
-            }`}
-          >
-            We are a team of front-end developers fueled by passion and driven
-            by the desire to create beautiful
-            <br />
-            and functional digital experiences.
-            <br />
-            Our love for technology and design come together to bring your
-            vision to life, making your digital
-            <br />
-            dreams a reality.
-          </p>
-          <p
-            className={`text-base flex-center mt-40 ml-[109px] ${
-              page == 2 ? "visible" : "hidden"
-            }`}
-          >
-            With each project we undertake, we strive to not just meet but
-            exceed your expectations.
-            <br />
-            We believe that a website or app is more than just code and pixels;
-            it&apos;s a reflection of who you are,
-            <br />
-            what you stand for, and the emotions you want to evoke in your
-            audience.
-          </p>
-          <p
-            className={`text-base flex-center mt-40 ml-[109px] ${
-              page == 3 ? "visible" : "hidden"
-            }`}
-          >
-            We pour our hearts into every line of code, every pixel, and every
-            interaction, because we want your
-            <br />
-            users to feel a connection to your brand, to feel understood, and to
-            have a sense of joy every time
-            <br />
-            they interact with your website or app.
-            <br />
-            <br />
-            Join us on this exciting journey, and let&apos;s create something
-            truly amazing together.
-          </p>
+            {t(`page_subject_${page}`)}
+          </motion.p>
         </div>
       </div>
     </>
