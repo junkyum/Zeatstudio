@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useAnimationControls } from "framer-motion";
+import { useEffect, useState } from "react";
 import styles from "@/styles/popup.module.css";
 
 export default function Popup({
@@ -20,16 +20,42 @@ export default function Popup({
       },
     },
   };
-
   const menuDraw = {
     hidden: { y: "100%" },
     visible: { y: "0%" },
   };
   const [moreOpen, setMoreOpen] = useState(false);
+  const textAppearance = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: (i: number) => ({
+      opacity: [0, 1],
+      y: [20, 0],
+      transition: {
+        delay: i * 0.4,
+        duration: 0.5,
+      },
+    }),
+  };
+  const textControl = useAnimationControls();
+  const btnControl = useAnimationControls();
+  useEffect(() => {
+    if (popup) {
+      textControl.set(textAppearance.hidden);
+      textControl.start(textAppearance.visible);
+      btnControl.start({
+        height: [0, 80],
+        y: [80, 0],
+        transition: { type: "spring", delay: 1, duration: 1 },
+      });
+    }
+  }, [popup]);
   return (
     <>
       <motion.div
-        className="w-full h-screen fixed top-0 left-0 z-30 bg-[#BDD3D6] text-white"
+        className={styles.popup_wrap}
         initial="hidden"
         animate={`${popup ? "visible" : "hidden"}`}
         variants={menuDraw}
@@ -39,19 +65,26 @@ export default function Popup({
           bounce: 0,
         }}
       >
-        <div className={`w-full h-screen ${styles.background}`}>
-          <div className="w-full h-screen pt-80 pl-100 pr-60 bg-[#4747ff20]">
+        <div className={styles.popup_back}>
+          <div className={styles.popup_cover}>
             <div className="flex justify-between z-30 ">
-              <p className="font-poppins_bold text-[72px] leading-[72px]">
+              <motion.p
+                className="font-poppins_bold text-[72px] leading-[72px]"
+                initial={"hidden"}
+                animate={textControl}
+                variants={textAppearance}
+                custom={1}
+              >
                 We are Front-end Development
                 <br />
                 Professionals.
-              </p>
+              </motion.p>
               <motion.div
-                className="w-20 h-20 rounded-lg bg-white flex justify-center items-center cursor-pointer"
+                className={styles.popup_close_btn}
                 onHoverStart={(e) => setMoreOpen(true)}
                 onHoverEnd={(e) => setMoreOpen(false)}
                 onClick={(e) => setPopup(false)}
+                animate={btnControl}
               >
                 <motion.svg
                   width="32"
@@ -80,7 +113,13 @@ export default function Popup({
                 </motion.svg>
               </motion.div>
             </div>
-            <p className="font-poppins text-[54px] leading-[64px] mt-46">
+            <motion.p
+              className="font-poppins text-[54px] leading-[64px] mt-46"
+              initial={"hidden"}
+              animate={textControl}
+              variants={textAppearance}
+              custom={1.5}
+            >
               Our service domain are <span>Interactive Experience Design,</span>
               <br />
               <span className="font-poppins_bold italic">
@@ -90,18 +129,21 @@ export default function Popup({
               <span className="font-poppins_bold italic">
                 AR-VR Contents Making.
               </span>
-            </p>
-            <p className="font-poppins text-[54px] leading-[64px] mt-46">
+            </motion.p>
+            <motion.p
+              className="font-poppins text-[54px] leading-[64px] mt-46"
+              initial={"hidden"}
+              animate={textControl}
+              variants={textAppearance}
+              custom={2}
+            >
               Send project inquiries to 📩{" "}
-              <span className="font-poppins_bold italic underline underline-offset-4">
-                brian@zeat.me
-              </span>{" "}
-              <br />
+              <span className={styles.email}>brian@zeat.me</span> <br />
               Our office is located in 🏢{" "}
               <span className="font-poppins_bold italic">
                 Seoul, South Korea
               </span>
-            </p>
+            </motion.p>
           </div>
         </div>
       </motion.div>

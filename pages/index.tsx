@@ -1,13 +1,16 @@
 import WithHead from "@/components/layout/withHead";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, spring, useAnimationControls } from "framer-motion";
 import Main from "@/components/home/main";
 import Popup from "@/components/home/popup";
-import styles from "@/styles/main.module.css";
+import styles from "@/styles/index.module.css";
 
 export default function Home() {
-  const [page, setPage] = useState(2);
+  const videos = [18, 19, 14];
+  const sourceTag = useRef<HTMLVideoElement>(null);
+  const [page, setPage] = useState(0);
   const [popup, setPopup] = useState(false);
+  const [videoSrc, setVideoSrc] = useState("");
   const popUpBtn = {
     show: {
       opacity: 1,
@@ -22,40 +25,70 @@ export default function Home() {
     },
   };
   const popUpBtnControl = useAnimationControls();
+  const progressControl = useAnimationControls();
+  const pageIndicatorControl = useAnimationControls();
+  const videoControl = useAnimationControls();
+  useEffect(() => {
+    if (page) {
+      progressControl.set({ width: 0 });
+      progressControl.start({
+        width: ["0px", "80px"],
+        transition: {
+          default: {
+            duration: videos[page - 1],
+          },
+          scale: {
+            type: "spring",
+          },
+        },
+      });
+      pageIndicatorControl.start({
+        opacity: [0, 1],
+        marginLeft: [5, 0],
+        transition: { duration: 0.5 },
+      });
+      videoControl.start({ opacity: [1, 0.2], transition: { delay: 0.5 } });
+      setVideoSrc(`/static/video/${page}.mp4`);
+      if (page < 3) {
+        setTimeout(() => {
+          setPage(page + 1);
+        }, videos[page - 1] * 1000 - 1000);
+      }
+    }
+  }, [page]);
+
   return (
-    <div className={`w-full h-full p-0 bg-white flex justify-center`}>
+    <div className={styles.body_wrap}>
       <WithHead prop={{ title: "Zeat studio" }} />
       <motion.div
-        className={`${page == 0 ? "" : "hidden"} fixed bottom-0 ${
-          styles.background
-        } z-0`}
+        className={`${page == 0 ? "" : "hidden"} ${styles.body_back_ground}`}
         animate={{
           width: ["30%", "40%", "100%"],
           height: ["0%", "100%", "100%"],
           left: ["35%", "30%", "0%"],
         }}
         transition={{
-          duration: 0.8,
-          ease: "easeInOut",
+          duration: 1,
+          type: "spring",
         }}
       />
       <motion.div
-        className={`${
-          page != 0 ? "" : "hidden"
-        } w-full h-full fixed top-0 left-0 z-10 bg-black`}
-        animate={{ opacity: [1, 0.2], transition: { delay: 0.5 } }}
+        className={`${page != 0 ? "" : "hidden"} ${
+          styles.body_back_ground_cover
+        }`}
+        animate={videoControl}
       />
       <video
-        className={`z-0 fixed top-0 left-0 ${page != 0 ? "" : "hidden"}`}
+        ref={sourceTag}
+        className={`${page != 0 ? "" : "hidden"} ${styles.back_video}`}
         width="100%"
         playsInline
         autoPlay
         loop
         muted
-      >
-        <source src={`/static/video/${page}.mp4`} type="video/mp4" />
-      </video>
-      <div className="pt-60 pl-70 pr-60 bg-transparent flex justify-between fixed top-0 left-0 w-full z-30">
+        src={videoSrc}
+      />
+      <div className={styles.top}>
         <div>
           <div className="mb-20">
             <img src={`/static/img/Logo.svg`} width="296.57px" alt="Zeat" />
@@ -69,7 +102,7 @@ export default function Home() {
         </div>
 
         <motion.div
-          className="w-20 h-20 rounded-lg flex justify-center cursor-pointer bg-[#3333FF] "
+          className={styles.top_btn}
           whileHover={{ width: 495 }}
           transition={{ type: "linear" }}
           initial={{ opacity: 0 }}
@@ -85,7 +118,7 @@ export default function Home() {
           }}
         >
           <motion.span
-            className="h-8 self-center font-poppins_semi text-2xl text-white"
+            className={styles.top_btn_text}
             initial="hide"
             animate={popUpBtnControl}
             variants={popUpBtn}
@@ -95,37 +128,26 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <Main page={page} setPage={setPage} />
+      <Main page={page} />
 
-      <div className="font-poppins text-white flex justify-between absolute inset-x-0 bottom-0 z-10">
-        <p className="text-base ml-71 mb-60">© ZEAT Corp.</p>
-        <p className={`text-2xl mb-56 mr-[344px] ${page == 0 ? "" : "hidden"}`}>
+      <div className={styles.bottom_wrap}>
+        <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>
+        <p className={`${page == 0 ? "text-2xl mb-56 mr-[344px]" : "hidden"}`}>
           Front-end professional team
         </p>
-        <div
-          className={`flex justify-between w-[430px] mb-56 mr-60 ${
-            page == 0 ? "hidden" : ""
-          }`}
-        >
-          <p>Our Philosophy - 0{page}</p>
-          <div
-            className={`bg-white flex w-[80px] h-0.5 rounded-sm ${
-              page == 1
-                ? "justify-start"
-                : page == 2
-                ? "justify-center"
-                : "justify-end"
-            }`}
-          >
+        <div className={`${page == 0 ? "hidden" : styles.bottom_page_info}`}>
+          <div>
+            <span>Our Philosophy - </span>
+            <motion.span className="w-[40px]" animate={pageIndicatorControl}>
+              0{page}
+            </motion.span>
+          </div>
+
+          <div className={styles.bottom_page_indicator}>
             <motion.div
-              className="bg-[#3333FF] w-[32px] h-0.5 rounded-sm"
+              className="bg-[#3333FF] w-0 h-0.5 rounded-sm"
               layout
-              transition={{
-                type: spring,
-                stiffiness: 700,
-                damping: 30,
-                duration: 0.6,
-              }}
+              animate={progressControl}
             />
           </div>
         </div>

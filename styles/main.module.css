@@ -1,4 +1,22 @@
-.background {
-  background: url("/static/img/bg_img_2.png");
-  background-position: center;
+.main_wrap {
+  @apply self-center text-white flex justify-between z-20;
+}
+.landing_text {
+  @apply font-poppins_bold text-[86px] leading-[82px] tracking-[-.06em] self-center;
+}
+
+.landing_bar {
+  @apply w-[325px] h-[20px] mt-13 rounded-md bg-gradient-to-r to-[rgba(51,51,255,1)] from-[rgba(51,51,255,0.25)];
+}
+
+.main {
+  @apply w-[1256px] h-screen self-center flex flex-col z-10;
+}
+
+.main_title {
+  @apply ml-[106px] h-3/6 flex items-stretch font-poppins_bold text-[72px] leading-[62px] text-white;
+}
+
+.main_subject {
+  @apply text-base mt-40 ml-[109px] whitespace-pre;
 }

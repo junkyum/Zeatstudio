@@ -1,16 +1,10 @@
 import { motion, useAnimationControls, useMotionValue } from "framer-motion";
-
 import "@/components/util/language";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import styles from "@/styles/main.module.css";
 
-export default function Main({
-  page,
-  setPage,
-}: {
-  page: number;
-  setPage(page: number): void;
-}) {
+export default function Main({ page }: { page: number }) {
   const [t, i18n] = useTranslation();
   const textAppearance = {
     hidden: {
@@ -32,23 +26,17 @@ export default function Main({
   };
   const textControl = useAnimationControls();
   const barControl = useAnimationControls();
-  const pageChange = (page: number) => {
-    barControl.start(barAppearance);
-    textControl.start(textAppearance.visible);
-    setPage(page);
-  };
+
   useEffect(() => {
-    barControl.start(barAppearance);
-    textControl.start(textAppearance.visible);
-  }, [barControl, textControl, false]);
+    if (page) {
+      barControl.start(barAppearance);
+      textControl.start(textAppearance.visible);
+    }
+  }, [page]);
   return (
     <>
-      <div
-        className={`self-center text-white flex justify-between z-20 ${
-          page == 0 ? "" : "hidden"
-        }`}
-      >
-        <div className="font-poppins_bold text-[86px] leading-[82px] tracking-[-.06em] self-center">
+      <div className={`${page == 0 ? styles.main_wrap : "hidden"}`}>
+        <div className={styles.landing_text}>
           <p>
             your ideas -<br />
             UX,UI design
@@ -62,13 +50,13 @@ export default function Main({
             Experience
           </p>
           <motion.div
-            className="w-[325px] h-[20px] mt-13 rounded-lg bg-gradient-to-r to-indigo-400 from-purple-500"
+            className={styles.landing_bar}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           />
         </div>
-        <div className="font-poppins_bold text-[86px] leading-[82px] tracking-[-.06em] self-center shrink">
+        <div className={styles.landing_text}>
           <p>
             Interactive
             <br />
@@ -76,13 +64,9 @@ export default function Main({
           </p>
         </div>
       </div>
-      <div
-        className={`w-[1256px] h-screen self-center flex flex-col z-10 ${
-          page == 0 ? "hidden" : ""
-        }`}
-      >
+      <div className={`${page == 0 ? "hidden" : styles.main}`}>
         <div
-          className={`ml-[106px] h-3/6 flex items-stretch font-poppins_bold text-[72px] leading-[62px] text-white  ${
+          className={`${styles.main_title} ${
             page == 3 ? "justify-end -mr-[252px]" : ""
           }`}
         >
@@ -114,7 +98,7 @@ export default function Main({
             {t(`page_sub_title_${page}`)}
           </motion.p>
           <motion.p
-            className={`text-base flex-center mt-40 ml-[109px] whitespace-pre`}
+            className={styles.main_subject}
             animate={textControl}
             variants={textAppearance}
             custom={2}

@@ -1,0 +1,46 @@
+.background {
+  background: url("/static/img/bg_img_2.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.body_wrap {
+  @apply w-full h-full p-0 bg-white flex justify-center;
+}
+
+.body_back_ground {
+  @apply fixed bottom-0 z-0 background;
+}
+
+.body_back_ground_cover {
+  @apply w-full h-full fixed top-0 left-0 z-10 bg-black;
+}
+
+.back_video {
+  @apply z-0 fixed top-0 left-0;
+}
+
+.top {
+  @apply pt-60 pl-70 pr-60 bg-transparent flex justify-between fixed top-0 left-0 w-full z-30;
+}
+
+.top_btn {
+  @apply w-20 h-20 rounded-lg flex justify-center cursor-pointer bg-[#3333FF];
+}
+
+.top_btn_text {
+  @apply h-8 self-center font-poppins_semi text-2xl text-white;
+}
+
+.bottom_wrap {
+  @apply font-poppins text-white flex justify-between absolute inset-x-0 bottom-0 z-10;
+}
+
+.bottom_page_info {
+  @apply flex justify-between w-[430px] mb-56 mr-60;
+}
+
+.bottom_page_indicator {
+  @apply bg-white flex w-[80px] h-0.5 rounded-sm self-center;
+}
