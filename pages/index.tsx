@@ -128,7 +128,7 @@ export default function Home() {
         </motion.div>
       </div>
 
-      <Main page={page} />
+      <Main page={page} setPage={setPage} />
 
       <div className={styles.bottom_wrap}>
         <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>

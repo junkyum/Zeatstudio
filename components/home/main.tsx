@@ -4,7 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import styles from "@/styles/main.module.css";
 
-export default function Main({ page }: { page: number }) {
+export default function Main({
+  page,
+  setPage,
+}: {
+  page: number;
+  setPage(page: number): void;
+}) {
   const [t, i18n] = useTranslation();
   const textAppearance = {
     hidden: {
@@ -35,7 +41,12 @@ export default function Main({ page }: { page: number }) {
   }, [page]);
   return (
     <>
-      <div className={`${page == 0 ? styles.main_wrap : "hidden"}`}>
+      <div
+        className={`${page == 0 ? styles.main_wrap : "hidden"}`}
+        onClick={(e) => {
+          setPage(page + 1);
+        }}
+      >
         <div className={styles.landing_text}>
           <p>
             your ideas -<br />
