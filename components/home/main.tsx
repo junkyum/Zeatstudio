@@ -77,7 +77,7 @@ export default function Main({
         </div>
       </div>
       <div
-        className={`w-[1256px] h-screen self-center flex flex-col  z-20 ${
+        className={`w-[1256px] h-screen self-center flex flex-col z-10 ${
           page == 0 ? "hidden" : ""
         }`}
       >
@@ -90,9 +90,6 @@ export default function Main({
             className={`self-end whitespace-pre`}
             animate={textControl}
             variants={textAppearance}
-            onClick={() => {
-              pageChange(2);
-            }}
             custom={1}
           >
             {t(`page_title_${page}`)}

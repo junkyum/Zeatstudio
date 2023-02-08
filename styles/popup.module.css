@@ -1,0 +1,6 @@
+.background {
+  background: url("/static/img/bg_img.png");
+  background-size: 50% auto;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
