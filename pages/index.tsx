@@ -48,7 +48,7 @@ export default function Home() {
       <video
         className={`z-0 fixed top-0 left-0 ${page != 0 ? "" : "hidden"}`}
         width="100%"
-        height="100%"
+        playsInline
         autoPlay
         loop
         muted
