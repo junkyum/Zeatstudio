@@ -6,7 +6,7 @@
 }
 
 .popup_wrap {
-  @apply w-full h-screen fixed top-0 left-0 z-30 bg-[#BDD3D6] text-white;
+  @apply w-full h-full fixed top-0 left-0 z-30 bg-[#BDD3D6] text-white;
 }
 
 .popup_back {

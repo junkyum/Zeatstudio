@@ -27,8 +27,9 @@ export default function Main({
     }),
   };
   const barAppearance = {
+    opacity: 1,
     left: [0, 1104, 0],
-    transition: { type: "spring", bounce: 0.4, duration: 1 },
+    transition: { type: "spring", bounce: 0.4, duration: 1, delay: 0.3 },
   };
   const textControl = useAnimationControls();
   const barControl = useAnimationControls();
@@ -94,6 +95,7 @@ export default function Main({
           <motion.div
             className="bg-white w-[152px] h-0.5 rounded absolute"
             layout
+            initial={{ opacity: 0 }}
             animate={barControl}
           />
         </div>

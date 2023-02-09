@@ -4,6 +4,8 @@ import { motion, spring, useAnimationControls } from "framer-motion";
 import Main from "@/components/home/main";
 import Popup from "@/components/home/popup";
 import styles from "@/styles/index.module.css";
+import Mobile from "@/components/home/mobile";
+import { isMobile } from "react-device-detect";
 
 export default function Home() {
   const videos = [18, 19, 14];
@@ -56,7 +58,6 @@ export default function Home() {
       }
     }
   }, [page]);
-
   return (
     <div className={styles.body_wrap}>
       <WithHead prop={{ title: "Zeat studio" }} />
@@ -78,6 +79,7 @@ export default function Home() {
         }`}
         animate={videoControl}
       />
+
       <video
         ref={sourceTag}
         className={`${page != 0 ? "" : "hidden"} ${styles.back_video}`}
@@ -91,10 +93,14 @@ export default function Home() {
       <div className={styles.top}>
         <div>
           <div className="mb-20">
-            <img src={`/static/img/Logo.svg`} width="296.57px" alt="Zeat" />
+            <img
+              src={`/static/img/Logo.svg`}
+              className="w-[159px] xl:w-[296px]"
+              alt="Zeat"
+            />
           </div>
           <div>
-            <span className="font-poppins text-base text-white">
+            <span className="font-poppins text-[12px] xl:text-base text-white">
               Bringing your design to life with heart,
               <br /> creating meaningful connections through code
             </span>
@@ -103,33 +109,33 @@ export default function Home() {
 
         <motion.div
           className={styles.top_btn}
-          whileHover={{ width: 495 }}
+          whileHover={{ width: isMobile ? 495 : 28 }}
           transition={{ type: "linear" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.2, delay: 1.2 } }}
           onHoverStart={(e) => {
-            popUpBtnControl.start(popUpBtn.show);
+            if (!isMobile) popUpBtnControl.start(popUpBtn.show);
           }}
           onHoverEnd={(e) => {
             popUpBtnControl.start(popUpBtn.hide);
           }}
-          onClick={(e) => {
-            setPopup(true);
+          onClick={() => {
+            setPopup(!isMobile);
           }}
         >
           <motion.span
             className={styles.top_btn_text}
             initial="hide"
-            animate={popUpBtnControl}
+            animate={isMobile ? popUpBtnControl : ""}
             variants={popUpBtn}
           >
             Studio Infomation & Contact Details
           </motion.span>
         </motion.div>
       </div>
-
-      <Main page={page} setPage={setPage} />
-
+      {/* 
+      <Main page={page} setPage={setPage} /> */}
+      <Mobile />
       <div className={styles.bottom_wrap}>
         <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>
         <p className={`${page == 0 ? "text-2xl mb-56 mr-[344px]" : "hidden"}`}>

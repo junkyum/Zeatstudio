@@ -10,31 +10,31 @@
 }
 
 .body_back_ground {
-  @apply fixed bottom-0 z-0 background;
+  @apply hidden xl:block fixed bottom-0 z-0 background;
 }
 
 .body_back_ground_cover {
-  @apply w-full h-full fixed top-0 left-0 z-10 bg-black;
+  @apply hidden xl:block w-full h-full fixed top-0 left-0 z-10 bg-black;
 }
 
 .back_video {
-  @apply z-0 fixed top-0 left-0;
+  @apply hidden xl:block z-0 fixed top-0 left-0;
 }
 
 .top {
-  @apply pt-60 pl-70 pr-60 bg-transparent flex justify-between fixed top-0 left-0 w-full z-30;
+  @apply pt-24 xl:pt-60  pl-24 xl:pl-70 pr-22 xl:pr-60 bg-transparent flex justify-between fixed top-0 left-0 w-full z-30;
 }
 
 .top_btn {
-  @apply w-20 h-20 rounded-lg flex justify-center cursor-pointer bg-[#3333FF];
+  @apply rounded xl:rounded-lg flex justify-center shrink-0 cursor-pointer bg-[#3333FF]  w-[28px] xl:w-20  h-[28px] xl:h-20;
 }
 
 .top_btn_text {
-  @apply h-8 self-center font-poppins_semi text-2xl text-white;
+  @apply hidden xl:block h-8 self-center font-poppins_semi text-2xl text-white;
 }
 
 .bottom_wrap {
-  @apply font-poppins text-white flex justify-between absolute inset-x-0 bottom-0 z-10;
+  @apply hidden xl:flex font-poppins text-white justify-between absolute inset-x-0 bottom-0 z-10;
 }
 
 .bottom_page_info {
