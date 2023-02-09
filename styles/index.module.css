@@ -30,7 +30,7 @@
 }
 
 .top_btn_text {
-  @apply hidden xl:block h-8 self-center font-poppins_semi text-2xl text-white;
+  @apply sm:max-xl:hidden h-8 self-center font-poppins_semi text-2xl text-white;
 }
 
 .bottom_wrap {
