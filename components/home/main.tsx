@@ -65,7 +65,7 @@ export default function Main({
             className={styles.landing_bar}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.8 }}
           />
         </div>
         <div className={styles.landing_text}>
@@ -84,6 +84,7 @@ export default function Main({
         >
           <motion.p
             className={`self-end whitespace-pre`}
+            initial={{ opacity: 0 }}
             animate={textControl}
             variants={textAppearance}
             custom={1}
@@ -104,6 +105,7 @@ export default function Main({
             className={`flex-center mt-53 whitespace-pre ${
               page == 3 ? "ml-[109px]" : "ml-[160px]"
             }`}
+            initial={{ opacity: 0 }}
             animate={textControl}
             variants={textAppearance}
             custom={1.5}
@@ -112,6 +114,7 @@ export default function Main({
           </motion.p>
           <motion.p
             className={styles.main_subject}
+            initial={{ opacity: 0 }}
             animate={textControl}
             variants={textAppearance}
             custom={2}

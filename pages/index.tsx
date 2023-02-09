@@ -58,6 +58,13 @@ export default function Home() {
       }
     }
   }, [page]);
+
+  const MainPage = () => {
+    return (
+      <>{isMobile ? <Mobile /> : <Main page={page} setPage={setPage} />}</>
+    );
+  };
+
   return (
     <div className={styles.body_wrap}>
       <WithHead prop={{ title: "Zeat studio" }} />
@@ -133,9 +140,7 @@ export default function Home() {
           </motion.span>
         </motion.div>
       </div>
-      {/* 
-      <Main page={page} setPage={setPage} /> */}
-      <Mobile />
+      <MainPage />
       <div className={styles.bottom_wrap}>
         <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>
         <p className={`${page == 0 ? "text-2xl mb-56 mr-[344px]" : "hidden"}`}>
