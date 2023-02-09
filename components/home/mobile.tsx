@@ -1,11 +1,12 @@
 import styles from "@/styles/mobile.module.css";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Mobile() {
   return (
     <>
-      <div className="w-full h-screen bg-black bg-cover bg-no-repeat bg-center">
-        <div className="h-full flex flex-col justify-center">
+      <div className="w-full h-fit bg-black bg-cover bg-no-repeat bg-center">
+        <div className="h-screen flex flex-col justify-center">
           <div
             className={`font-poppins_bold text-[48px] leading-[46px] text-white tracking-tighter ml-24`}
           >
@@ -31,7 +32,7 @@ export default function Mobile() {
           </div>
 
           <div>
-            <p className="font-poppins_bold text-[48px] leading-[46px] text-white tracking-tighter  ml-24">
+            <p className="font-poppins_bold text-[48px] leading-[46px] text-white tracking-tighter ml-24">
               Interactive
               <br />
               web, app

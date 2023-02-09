@@ -109,7 +109,7 @@ export default function Home() {
 
         <motion.div
           className={styles.top_btn}
-          whileHover={{ width: isMobile ? 495 : 28 }}
+          whileHover={{ width: isMobile ? 28 : 495 }}
           transition={{ type: "linear" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.2, delay: 1.2 } }}
