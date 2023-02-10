@@ -7,12 +7,22 @@ import styles from "@/styles/index.module.css";
 import Mobile from "@/components/home/mobile";
 
 export default function Home() {
-  const videos = [18, 19, 14];
+  const videos = [18000, 19000, 14000];
   const sourceTag = useRef<HTMLVideoElement>(null);
   const [mobile, setMobile] = useState(false);
   const [page, setPage] = useState(0);
   const [popup, setPopup] = useState(false);
   const [videoSrc, setVideoSrc] = useState("");
+  const introControl = useAnimationControls();
+  const introAni = {
+    width: ["30%", "40%", "100%"],
+    height: ["0%", "100%", "100%"],
+    left: ["35%", "30%", "0%"],
+    transition: {
+      duration: 1,
+      type: "spring",
+    },
+  };
   const popUpBtn = {
     show: {
       opacity: 1,
@@ -30,6 +40,7 @@ export default function Home() {
   const progressControl = useAnimationControls();
   const pageIndicatorControl = useAnimationControls();
   const videoControl = useAnimationControls();
+  const refTimer = useRef<number | null>(null);
 
   useEffect(() => {
     if (page) {
@@ -38,7 +49,7 @@ export default function Home() {
         width: ["0px", "80px"],
         transition: {
           default: {
-            duration: videos[page - 1],
+            duration: videos[page - 1] / 1000,
           },
           scale: {
             type: "spring",
@@ -52,15 +63,16 @@ export default function Home() {
       });
       videoControl.start({ opacity: [1, 0.2], transition: { delay: 0.5 } });
       setVideoSrc(`/static/video/${page}.mp4`);
-      if (page < 3) {
-        setTimeout(() => {
-          setPage(page + 1);
-        }, videos[page - 1] * 1000 - 1000);
-      }
+      if (refTimer.current !== null) window.clearTimeout(refTimer.current);
+      refTimer.current = window.setTimeout(() => {
+        let next = page + 1 > 3 ? 1 : page + 1;
+        setPage(next);
+      }, videos[page - 1]);
     }
   }, [page]);
 
   useEffect(() => {
+    introControl.start(introAni);
     const updateMobile = () => {
       setMobile(window.innerWidth < 1280 ? true : false);
     };
@@ -68,6 +80,9 @@ export default function Home() {
     window.addEventListener("resize", updateMobile);
     return () => {
       window.removeEventListener("resize", updateMobile);
+      if (refTimer.current !== null) {
+        window.clearTimeout(refTimer.current);
+      }
     };
   }, []);
 
@@ -80,6 +95,11 @@ export default function Home() {
       )
     ) : null;
   };
+  function intro() {
+    setPage(0);
+    introControl.start(introAni);
+    if (refTimer.current !== null) window.clearTimeout(refTimer.current);
+  }
 
   return (
     <div className={styles.body_wrap}>
@@ -88,15 +108,7 @@ export default function Home() {
         className={`${page == 0 && !mobile ? "" : "hidden"} ${
           styles.body_back_ground
         }`}
-        animate={{
-          width: ["30%", "40%", "100%"],
-          height: ["0%", "100%", "100%"],
-          left: ["35%", "30%", "0%"],
-        }}
-        transition={{
-          duration: 1,
-          type: "spring",
-        }}
+        animate={introControl}
       />
       <motion.div
         className={`${page != 0 && !mobile ? "" : "hidden"} ${
@@ -109,7 +121,6 @@ export default function Home() {
         className={`${page != 0 && !mobile ? "" : "hidden"} ${
           styles.back_video
         }`}
-        width="100%"
         playsInline
         autoPlay
         loop
@@ -118,10 +129,10 @@ export default function Home() {
       />
       <div className={styles.top}>
         <div>
-          <div className="mb-20">
+          <div className="mb-20" onClick={intro}>
             <img
               src={`/static/img/Logo.svg`}
-              className="w-[159px] xl:w-[296px]"
+              className="w-[159px] xl:w-[296px] cursor-pointer"
               alt="Zeat"
             />
           </div>

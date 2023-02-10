@@ -14,7 +14,7 @@
 }
 
 .main_title {
-  @apply ml-[106px] h-3/6 flex items-stretch font-poppins_bold text-[72px] leading-[62px] text-white;
+  @apply ml-[106px] h-[45%] flex items-stretch font-poppins_bold text-[72px] leading-[62px] text-white;
 }
 
 .main_subject {
