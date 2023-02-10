@@ -10,15 +10,15 @@
 }
 
 .body_back_ground {
-  @apply sm:max-xl:hidden fixed bottom-0 z-0 background;
+  @apply fixed bottom-0 z-0 background;
 }
 
 .body_back_ground_cover {
-  @apply sm:max-xl:hidden w-full h-full fixed top-0 left-0 z-10 bg-black;
+  @apply w-full h-full fixed top-0 left-0 z-10 bg-black;
 }
 
 .back_video {
-  @apply sm:max-xl:hidden z-0 fixed top-0 left-0;
+  @apply z-0 fixed top-0 left-0;
 }
 
 .top {

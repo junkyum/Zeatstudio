@@ -5,11 +5,11 @@ import Main from "@/components/home/main";
 import Popup from "@/components/home/popup";
 import styles from "@/styles/index.module.css";
 import Mobile from "@/components/home/mobile";
-import { isMobile } from "react-device-detect";
 
 export default function Home() {
   const videos = [18, 19, 14];
   const sourceTag = useRef<HTMLVideoElement>(null);
+  const [mobile, setMobile] = useState(false);
   const [page, setPage] = useState(0);
   const [popup, setPopup] = useState(false);
   const [videoSrc, setVideoSrc] = useState("");
@@ -59,17 +59,34 @@ export default function Home() {
     }
   }, [page]);
 
+  useEffect(() => {
+    const updateMobile = () => {
+      setMobile(window.innerWidth < 1280 ? true : false);
+    };
+    updateMobile();
+    window.addEventListener("resize", updateMobile);
+    return () => {
+      window.removeEventListener("resize", updateMobile);
+    };
+  }, []);
+
   const MainPage = () => {
-    return (
-      <>{isMobile ? <Mobile /> : <Main page={page} setPage={setPage} />}</>
-    );
+    return typeof mobile !== "undefined" ? (
+      mobile ? (
+        <Mobile />
+      ) : (
+        <Main page={page} setPage={setPage} />
+      )
+    ) : null;
   };
 
   return (
     <div className={styles.body_wrap}>
       <WithHead prop={{ title: "Zeat studio" }} />
       <motion.div
-        className={`${page == 0 ? "" : "hidden"} ${styles.body_back_ground}`}
+        className={`${page == 0 && !mobile ? "" : "hidden"} ${
+          styles.body_back_ground
+        }`}
         animate={{
           width: ["30%", "40%", "100%"],
           height: ["0%", "100%", "100%"],
@@ -81,15 +98,16 @@ export default function Home() {
         }}
       />
       <motion.div
-        className={`${page != 0 ? "" : "hidden"} ${
+        className={`${page != 0 && !mobile ? "" : "hidden"} ${
           styles.body_back_ground_cover
         }`}
         animate={videoControl}
       />
-
       <video
         ref={sourceTag}
-        className={`${page != 0 ? "" : "hidden"} ${styles.back_video}`}
+        className={`${page != 0 && !mobile ? "" : "hidden"} ${
+          styles.back_video
+        }`}
         width="100%"
         playsInline
         autoPlay
@@ -116,24 +134,24 @@ export default function Home() {
 
         <motion.div
           className={styles.top_btn}
-          whileHover={{ width: isMobile ? 28 : 495 }}
+          whileHover={{ width: mobile ? 28 : 495 }}
           transition={{ type: "linear" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.2, delay: 1.2 } }}
           onHoverStart={(e) => {
-            if (!isMobile) popUpBtnControl.start(popUpBtn.show);
+            if (!mobile) popUpBtnControl.start(popUpBtn.show);
           }}
           onHoverEnd={(e) => {
             popUpBtnControl.start(popUpBtn.hide);
           }}
           onClick={() => {
-            setPopup(!isMobile);
+            setPopup(!mobile);
           }}
         >
           <motion.span
             className={styles.top_btn_text}
             initial="hide"
-            animate={isMobile ? popUpBtnControl : ""}
+            animate={mobile ? "" : popUpBtnControl}
             variants={popUpBtn}
           >
             Studio Infomation & Contact Details
