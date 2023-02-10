@@ -1,8 +1,9 @@
 import { motion, useAnimationControls, useMotionValue } from "framer-motion";
 import "@/components/util/language";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "@/styles/main.module.css";
+import { useFollowPointer } from "@/components/util/use-follow-pointer";
 
 export default function Main({
   page,
@@ -12,6 +13,8 @@ export default function Main({
   setPage(page: number): void;
 }) {
   const [t, i18n] = useTranslation();
+  const ref = useRef(null);
+  const { x, y } = useFollowPointer(ref);
   const textAppearance = {
     hidden: {
       opacity: 0,
