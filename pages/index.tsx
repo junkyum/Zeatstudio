@@ -30,6 +30,7 @@ export default function Home() {
   const progressControl = useAnimationControls();
   const pageIndicatorControl = useAnimationControls();
   const videoControl = useAnimationControls();
+
   useEffect(() => {
     if (page) {
       progressControl.set({ width: 0 });
