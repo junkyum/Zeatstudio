@@ -7,7 +7,7 @@ import styles from "@/styles/index.module.css";
 import Mobile from "@/components/home/mobile";
 
 export default function Home() {
-  const videos = [18000, 19000, 14000];
+  const videos = [17000, 19000, 14000];
   const sourceTag = useRef<HTMLVideoElement>(null);
   const [mobile, setMobile] = useState(false);
   const [page, setPage] = useState(0);
@@ -67,7 +67,7 @@ export default function Home() {
       refTimer.current = window.setTimeout(() => {
         let next = page + 1 > 3 ? 1 : page + 1;
         setPage(next);
-      }, videos[page - 1]);
+      }, videos[page - 1] - 1000);
     }
   }, [page]);
 

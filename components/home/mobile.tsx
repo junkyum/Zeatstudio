@@ -1,14 +1,25 @@
 import styles from "@/styles/mobile.module.css";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useEffect, useRef, useState } from "react";
 import "@/components/util/language";
 
 export default function Mobile() {
   const [t, i18n] = useTranslation();
+  const y = useMotionValue(0);
+  const ref = useRef<HTMLDivElement>(null);
+  useMotionValueEvent(y, "change", (last) => {
+    // console.log("last = ", last);
+  });
+  function pageChange(scroll: number) {
+    if (ref === null) return;
+    const el = ref.current!;
+    el.scrollBy(0, scroll * -1);
+  }
 
   function Page({ id }: { id: number }) {
     return (
-      <div className="h-screen flex flex-col snap-center">
+      <motion.div className="h-screen flex flex-col snap-center">
         <div className="h-2/5 flex justify-end">
           <p className="font-poppins_bold text-4xl text-white mx-24 self-end">
             {t(`page_title_${id}`)}
@@ -30,15 +41,18 @@ export default function Mobile() {
             Our Philosophy - 0{id}
           </p>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
     <>
-      <div className="w-full max-h-screen overflow-y-scroll snap snap-y snap-mandatory bg-black bg-cover bg-no-repeat bg-center">
+      <motion.div
+        className="w-full max-h-screen overflow-y-scroll snap snap-y snap-mandatory bg-black bg-cover bg-no-repeat bg-center scroll-smooth"
+        ref={ref}
+      >
         <div className="w-full h-[100px] bg-gradient-to-t to-[rgba(0,0,0,0.9)] from-[rgba(0,0,0,0)] fixed top-0 z-10" />
-        <div className="h-screen flex flex-col justify-center snap-center ">
+        <motion.div className="h-screen flex flex-col justify-center snap-center ">
           <div
             className={`font-poppins_bold text-[48px] leading-[46px] text-white tracking-tighter ml-24`}
           >
@@ -70,11 +84,20 @@ export default function Mobile() {
               web, app
             </p>
           </div>
-        </div>
+        </motion.div>
         {[1, 2, 3].map((page) => (
           <Page key={page} id={page} />
         ))}
-      </div>
+        <motion.div
+          className="fixed w-full h-full z-10 left-0 top-0"
+          drag="y"
+          _dragY={y}
+          dragConstraints={{ top: -100, bottom: 100 }}
+          onDragEnd={(e, i) => {
+            pageChange(i.offset.y);
+          }}
+        />
+      </motion.div>
     </>
   );
 }

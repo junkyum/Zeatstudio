@@ -1,5 +1,5 @@
 .main_wrap {
-  @apply self-center text-white flex justify-between z-20;
+  @apply self-center text-white flex justify-between z-20 relative;
 }
 .landing_text {
   @apply font-poppins_bold text-[86px] leading-[82px] tracking-[-.06em] self-center;

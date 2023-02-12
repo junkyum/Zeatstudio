@@ -5,12 +5,24 @@ export function useFollowPointer(ref: RefObject<HTMLElement>) {
 
   useEffect(() => {
     if (!ref.current) return;
-
     const handlePointerMove = ({ clientX, clientY }: MouseEvent) => {
-      const element = ref.current!;
-
-      const x = clientX - element.offsetLeft - element.offsetWidth / 2;
-      const y = clientY - element.offsetTop - element.offsetHeight / 2;
+      const el = ref.current!;
+      const xMax = el.offsetWidth;
+      const yMax = el.offsetHeight;
+      const xMin = 0;
+      const yMin = 0;
+      let x =
+        clientX > xMax + el.offsetLeft
+          ? xMax
+          : clientX < el.offsetLeft
+          ? xMin
+          : clientX - el.offsetLeft - 40;
+      let y =
+        clientY > yMax + el.offsetTop
+          ? yMax
+          : clientY < el.offsetTop
+          ? yMin
+          : clientY - el.offsetTop - 40;
       setPoint({ x, y });
     };
 

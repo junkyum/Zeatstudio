@@ -1,4 +1,9 @@
-import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import {
+  animate,
+  motion,
+  useAnimationControls,
+  useMotionValue,
+} from "framer-motion";
 import "@/components/util/language";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState, useRef } from "react";
@@ -15,6 +20,7 @@ export default function Main({
   const [t, i18n] = useTranslation();
   const ref = useRef(null);
   const { x, y } = useFollowPointer(ref);
+  const [isInMain, setIsInMain] = useState(false);
   const textAppearance = {
     hidden: {
       opacity: 0,
@@ -34,6 +40,7 @@ export default function Main({
     left: [0, 1104, 0],
     transition: { type: "spring", bounce: 0.4, duration: 1, delay: 0.3 },
   };
+
   const textControl = useAnimationControls();
   const barControl = useAnimationControls();
 
@@ -43,13 +50,14 @@ export default function Main({
       textControl.start(textAppearance.visible);
     }
   }, [page]);
+
   return (
     <>
-      <div
+      <motion.div
         className={`${page == 0 ? styles.main_wrap : "hidden"}`}
-        onClick={(e) => {
-          setPage(page + 1);
-        }}
+        onHoverStart={() => setIsInMain(true)}
+        onHoverEnd={() => setIsInMain(false)}
+        ref={ref}
       >
         <div className={styles.landing_text}>
           <p>
@@ -78,7 +86,27 @@ export default function Main({
             web, app
           </p>
         </div>
-      </div>
+        <motion.div
+          className="absolute"
+          animate={{ x, y }}
+          transition={{
+            type: "spring",
+            damping: 10,
+            stiffness: 100,
+            restDelta: 0.001,
+          }}
+          onClick={(e) => {
+            if (isInMain) setPage(page + 1);
+          }}
+        >
+          <motion.div
+            className={`w-20 h-20 rounded-2xl bg-blue-800 cursor-pointer`}
+            initial={{ opacity: 0 }}
+            animate={isInMain ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          ></motion.div>
+        </motion.div>
+      </motion.div>
       <div className={`${page == 0 ? "hidden" : styles.main}`}>
         <div
           className={`${styles.main_title} ${
