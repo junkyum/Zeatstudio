@@ -60,10 +60,13 @@ export default function Mobile() {
 
   return (
     <>
-      <motion.div
-        className="w-[1600px] h-screen bg-[url('/static/img/bg_img_2.png')] bg- bg-no-repeat fixed top-0 -left-2/6"
-        style={{ x: mx }}
-      />
+      <motion.div className="w-[1600px] h-screen fixed pt-[80px] pl-[400px] bg-[rgba(205,217,222,1)]">
+        <motion.div
+          className="w-full h-screen bg-[url('/static/img/bg_img_2.png')] bg-center bg-cover bg-no-repeat"
+          style={{ x: mx }}
+        />
+      </motion.div>
+
       <motion.div
         className="w-full h-fit scroll-smooth relative bg-[rgba(0,0,0,0.3)]"
         ref={ref}
