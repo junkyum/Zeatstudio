@@ -93,7 +93,7 @@ export default function Mobile() {
           </div>
           <div className="w-[164px] h-[164px] my-40 flex flex-col justify-end rotate-90 pb-30">
             <p className="font-poppins_bold text-base text-white">FDX</p>
-            <p className="font-poppins text-base text-white">
+            <p className="font-poppins text-[12px] leading-[14px] text-white">
               Front-end Development
               <br />
               Experience
