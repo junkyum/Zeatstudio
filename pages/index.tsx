@@ -149,7 +149,7 @@ export default function Home() {
           whileHover={{ width: mobile ? 28 : 495 }}
           transition={{ type: "linear" }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.2, delay: 1.2 } }}
+          animate={{ opacity: 1, transition: { duration: 0.5, delay: 0.8 } }}
           onHoverStart={(e) => {
             if (!mobile) popUpBtnControl.start(popUpBtn.show);
           }}
@@ -171,9 +171,45 @@ export default function Home() {
         </motion.div>
       </div>
       <MainPage />
+      <div
+        className={`fixed w-full h-3/6 top-1/4 left-0 flex justify-between z-40 ${
+          page == 0 ? "hidden" : ""
+        }`}
+      >
+        <motion.div
+          className="w-2/6 h-full opacity-0"
+          whileHover={{ opacity: 1 }}
+          onClick={() => {
+            setPage(page - 1 < 1 ? 1 : page - 1);
+          }}
+        >
+          <motion.div
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-17 px-16 fixed top-1/2 left-[70px]`}
+          >
+            <img src="/static/svg/arrow.svg" alt="no img" />
+          </motion.div>
+        </motion.div>
+        <motion.div
+          className="w-2/6 h-full opacity-0"
+          whileHover={{ opacity: 1 }}
+          onClick={() => {
+            setPage(page + 1 > 3 ? 3 : page + 1);
+          }}
+        >
+          <motion.div
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-16 px-16 fixed top-1/2 right-[70px]`}
+          >
+            <img
+              src="/static/svg/arrow.svg"
+              className="rotate-180"
+              alt="no img"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
       <div className={styles.bottom_wrap}>
         <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>
-        <p className={`${page == 0 ? "text-2xl mb-56 mr-[344px]" : "hidden"}`}>
+        <p className={`${page == 0 ? "text-2xl mb-56 mr-60" : "hidden"}`}>
           Front-end professional team
         </p>
         <div className={`${page == 0 ? "hidden" : styles.bottom_page_info}`}>
@@ -183,7 +219,6 @@ export default function Home() {
               0{page}
             </motion.span>
           </div>
-
           <div className={styles.bottom_page_indicator}>
             <motion.div
               className="bg-[#3333FF] w-0 h-0.5 rounded-sm"

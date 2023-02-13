@@ -16,13 +16,13 @@ export function useFollowPointer(ref: RefObject<HTMLElement>) {
           ? xMax
           : clientX < el.offsetLeft
           ? xMin
-          : clientX - el.offsetLeft - 40;
+          : clientX - el.offsetLeft - 29;
       let y =
         clientY > yMax + el.offsetTop
           ? yMax
           : clientY < el.offsetTop
           ? yMin
-          : clientY - el.offsetTop - 40;
+          : clientY - el.offsetTop - 29;
       setPoint({ x, y });
     };
 

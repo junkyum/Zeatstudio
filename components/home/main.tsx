@@ -1,9 +1,4 @@
-import {
-  animate,
-  motion,
-  useAnimationControls,
-  useMotionValue,
-} from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
 import "@/components/util/language";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState, useRef } from "react";
@@ -87,7 +82,7 @@ export default function Main({
           </p>
         </div>
         <motion.div
-          className="absolute"
+          className={`absolute ${page == 0 ? "" : "hidden"}`}
           animate={{ x, y }}
           transition={{
             type: "spring",
@@ -100,11 +95,13 @@ export default function Main({
           }}
         >
           <motion.div
-            className={`w-20 h-20 rounded-2xl bg-blue-800 cursor-pointer`}
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-13 pl-16`}
             initial={{ opacity: 0 }}
             animate={isInMain ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.2 }}
-          ></motion.div>
+          >
+            <img src="/static/svg/pointer.svg" alt="no img" />
+          </motion.div>
         </motion.div>
       </motion.div>
       <div className={`${page == 0 ? "hidden" : styles.main}`}>
