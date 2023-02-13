@@ -86,8 +86,8 @@ export default function Main({
           animate={{ x, y }}
           transition={{
             type: "spring",
-            damping: 10,
-            stiffness: 100,
+            damping: 100,
+            stiffness: 1000,
             restDelta: 0.001,
           }}
           onClick={(e) => {
@@ -95,7 +95,7 @@ export default function Main({
           }}
         >
           <motion.div
-            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-13 pl-16`}
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] border border-[rgb(51,51,255)] pt-13 pl-16`}
             initial={{ opacity: 0 }}
             animate={isInMain ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.2 }}

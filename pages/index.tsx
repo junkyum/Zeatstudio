@@ -183,12 +183,12 @@ export default function Home() {
         <motion.div
           className="w-2/6 h-full opacity-0"
           whileHover={{ opacity: 1 }}
-          onClick={() => {
-            setPage(page - 1 < 1 ? 1 : page - 1);
-          }}
         >
           <motion.div
-            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-17 px-16 fixed top-1/2 left-[70px]`}
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-18 px-16 fixed top-1/2 left-[70px]`}
+            onClick={() => {
+              setPage(page - 1 < 1 ? 3 : page - 1);
+            }}
           >
             <img src="/static/svg/arrow.svg" alt="no img" />
           </motion.div>
@@ -196,12 +196,12 @@ export default function Home() {
         <motion.div
           className="w-2/6 h-full opacity-0"
           whileHover={{ opacity: 1 }}
-          onClick={() => {
-            setPage(page + 1 > 3 ? 3 : page + 1);
-          }}
         >
           <motion.div
-            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-16 px-16 fixed top-1/2 right-[70px]`}
+            className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-18 px-16 fixed top-1/2 right-[70px]`}
+            onClick={() => {
+              setPage(page + 1 > 4 ? 1 : page + 1);
+            }}
           >
             <img
               src="/static/svg/arrow.svg"
@@ -214,7 +214,7 @@ export default function Home() {
       <div className={styles.bottom_wrap}>
         <p className="text-base ml-71 mb-60 z-40">&copy; ZEAT Corp.</p>
         <p className={`${page == 0 ? "text-2xl mb-56 mr-60" : "hidden"}`}>
-          Front-end professional team
+          We are a front-end professional team.
         </p>
         <div className={`${page == 0 ? "hidden" : styles.bottom_page_info}`}>
           <div>
