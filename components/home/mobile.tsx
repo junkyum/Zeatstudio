@@ -34,7 +34,7 @@ export default function Mobile() {
     if (current != nextPage) {
       backCoverControl.start({
         backgroundColor: ["rgba(0,0,0,1)", "rgba(0,0,0,0.2)"],
-        transition: { duration: 0.5 },
+        transition: { duration: 0.8 },
       });
       backControl.start({
         background: [`url('${bg_list[nextPage]}')`],
@@ -97,7 +97,7 @@ export default function Mobile() {
         />
       </motion.div>
       <motion.div
-        className="w-full max-h-screen overflow-y-scroll snap snap-y snap-mandatory scroll-smooth relative bg-[rgba(0,0,0,0.2)]"
+        className="w-full max-h-screen overflow-y-scroll snap snap-y snap-mandatory scroll-smooth relative"
         ref={ref}
         animate={backCoverControl}
       >
