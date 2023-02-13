@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import "@/components/util/language";
 export default function Mobile() {
   const [t, i18n] = useTranslation();
+  const textControl = useAnimationControls();
   const backControl = useAnimationControls();
   const backCoverControl = useAnimationControls();
   const y = useMotionValue(0);
@@ -44,6 +45,11 @@ export default function Mobile() {
     }
 
     current = nextPage;
+    if (current != 0) {
+      textControl.start({ opacity: 0 });
+    } else {
+      textControl.start({ opacity: 1 });
+    }
   });
   function pageChange(scroll: number) {
     if (ref === null) return;
@@ -102,6 +108,14 @@ export default function Mobile() {
         animate={backCoverControl}
       >
         <div className="w-full h-[100px] bg-gradient-to-t to-[rgba(0,0,0,0.9)] from-[rgba(0,0,0,0)] fixed top-0 z-10" />
+        <motion.p
+          className={`w-full h-fit fixed top-[60px] left-[24px] z-10 font-poppins text-[12px] leading-[18px] text-white`}
+          animate={textControl}
+        >
+          Bringing your design to life with heart,
+          <br />
+          creating meaningful connections through code.
+        </motion.p>
         <motion.div className="h-screen snap-center">
           <motion.div
             className="h-screen flex flex-col justify-center"

@@ -137,7 +137,11 @@ export default function Home() {
             />
           </div>
           <div>
-            <span className="font-poppins text-[12px] xl:text-base text-white">
+            <span
+              className={`font-poppins text-[12px] xl:text-base text-white ${
+                mobile && "hidden"
+              } `}
+            >
               Bringing your design to life with heart,
               <br /> creating meaningful connections through code
             </span>
