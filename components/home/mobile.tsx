@@ -66,9 +66,9 @@ export default function Mobile() {
           style={{ x: mx }}
         />
       </motion.div>
-
+      <div className="w-full h-screen bg-[rgba(0,0,0,0.3)] fixed top-0 left-0" />
       <motion.div
-        className="w-full h-fit scroll-smooth relative bg-[rgba(0,0,0,0.3)]"
+        className="w-full h-fit scroll-smooth relative"
         ref={ref}
         animate={backCoverControl}
       >
