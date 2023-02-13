@@ -20,8 +20,9 @@ export default function Mobile() {
   const my = useMotionValue(0);
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (last) => {
+    mx.set((last * -1) / 8);
     if (last > 0) {
-      textControl.start({ opacity: 0 });
+      textControl.start({ opacity: 0, transition: { duration: 0.2 } });
     } else {
       textControl.start({ opacity: 1 });
     }
@@ -35,7 +36,8 @@ export default function Mobile() {
     "/static/img/bg_img.png",
   ];
   useMotionValueEvent(y, "change", (last) => {
-    mx.set(last / 2);
+    let x = last;
+    mx.set(x / 10);
   });
   useMotionValueEvent(my, "change", (last) => {
     let nextPage = current;
@@ -58,21 +60,12 @@ export default function Mobile() {
 
   return (
     <>
-      {/* <motion.div className="max-w-screen h-screen overflow-x-scroll top-0 -left-[400px] fixed">
-        <motion.div
-          className={`w-[1200px] h-screen`}
-          style={{ x: mx }}
-          initial={{
-            background: "url('/static/img/bg_img_2.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-          animate={backControl}
-        />
-      </motion.div> */}
-      <div className="w-full h-screen bg-[url('/static/img/bg_img_2.png')] bg-cover bg-no-repeat bg-center fixed top-0 left-0" />
       <motion.div
-        className="w-full h-fit scroll-smooth relative bg-[rgba(0,0,0,0.2)]"
+        className="w-[1600px] h-screen bg-[url('/static/img/bg_img_2.png')] bg- bg-no-repeat fixed top-0 -left-2/6"
+        style={{ x: mx }}
+      />
+      <motion.div
+        className="w-full h-fit scroll-smooth relative bg-[rgba(0,0,0,0.3)]"
         ref={ref}
         animate={backCoverControl}
       >
@@ -127,17 +120,17 @@ export default function Mobile() {
           </div>
           <div className="w-[72px] h-[1px] bg-white mt-32"></div>
           <div className="mx-24 mt-43">
-            <p className="font-poppins_semi text-[18px] leading-[24px] text-white whitespace-pre">
+            <p className="font-poppins_semi text-xl text-white whitespace-pre">
               {t(`page_sub_title_${1}`)}
             </p>
           </div>
           <div className="mx-24 my-36">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               {t(`page_subject_${1}`)}
             </p>
           </div>
           <div className="mx-24">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               Our Philosophy - 0{1}
             </p>
           </div>
@@ -150,17 +143,17 @@ export default function Mobile() {
           </div>
           <div className="w-[72px] h-[1px] bg-white mt-32"></div>
           <div className="mx-24 mt-43">
-            <p className="font-poppins_semi text-[18px] leading-[24px] text-white whitespace-pre">
+            <p className="font-poppins_semi text-xl text-white whitespace-pre">
               {t(`page_sub_title_${2}`)}
             </p>
           </div>
           <div className="mx-24 my-36">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               {t(`page_subject_${2}`)}
             </p>
           </div>
           <div className="mx-24">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               Our Philosophy - 0{2}
             </p>
           </div>
@@ -173,17 +166,17 @@ export default function Mobile() {
           </div>
           <div className="w-[72px] h-[1px] bg-white mt-32"></div>
           <div className="mx-24 mt-43">
-            <p className="font-poppins_semi text-[18px] leading-[24px] text-white whitespace-pre">
+            <p className="font-poppins_semi text-xl text-white whitespace-pre">
               {t(`page_sub_title_${3}`)}
             </p>
           </div>
           <div className="mx-24 my-36">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               {t(`page_subject_${3}`)}
             </p>
           </div>
           <div className="mx-24">
-            <p className="font-poppins text-[14px] leading-[24px] text-white">
+            <p className="font-poppins text-base text-white">
               Our Philosophy - 0{3}
             </p>
           </div>
@@ -191,17 +184,17 @@ export default function Mobile() {
         <motion.div className="mt-[200px] mb-[60px]">
           <motion.div className="flex justify-center" style={{ y }}>
             <div className="self-center ml-24 mr-41 text-white">
-              <p className="font-poppins_bold text-[40px] leading-[41px]">
+              <p className="font-poppins_bold text-4xl">
                 We are Front-end Development Professionals.
               </p>
-              <p className="font-poppins text-[32px] leading-[36px] mt-40">
-                Our service domain are
+              <p className="font-poppins text-2xl mt-40">
+                Our service domain are{" "}
                 <span className="font-poppins_bold italic">
                   Interactive Experience Design, Website & App Development, GUI
                   Design, AR-VR Contents Making.
                 </span>
               </p>
-              <p className="font-poppins text-[24px] leading-[30px] mt-40">
+              <p className="font-poppins text-xl mt-40">
                 Send project inquiries to
                 <br />
                 <span className="font-poppins_bold italic underline">
