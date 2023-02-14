@@ -40,8 +40,9 @@ export default function Home() {
   const progressControl = useAnimationControls();
   const pageIndicatorControl = useAnimationControls();
   const videoControl = useAnimationControls();
+  const lBtnControl = useAnimationControls();
+  const rBtnControl = useAnimationControls();
   const refTimer = useRef<number | null>(null);
-
   useEffect(() => {
     if (page) {
       progressControl.set({ width: 0 });
@@ -181,14 +182,21 @@ export default function Home() {
         }`}
       >
         <motion.div
-          className="w-2/6 h-full opacity-0"
+          className="w-2/6 h-full opacity-0 "
           whileHover={{ opacity: 1 }}
+          onHoverStart={() =>
+            lBtnControl.start({
+              left: [100, 70],
+              transition: { duration: 0.8 },
+            })
+          }
         >
           <motion.div
             className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-18 px-16 fixed top-1/2 left-[70px]`}
             onClick={() => {
               setPage(page - 1 < 1 ? 3 : page - 1);
             }}
+            animate={lBtnControl}
           >
             <img src="/static/svg/arrow.svg" alt="no img" />
           </motion.div>
@@ -196,12 +204,19 @@ export default function Home() {
         <motion.div
           className="w-2/6 h-full opacity-0"
           whileHover={{ opacity: 1 }}
+          onHoverStart={() =>
+            rBtnControl.start({
+              right: [100, 70],
+              transition: { duration: 0.8 },
+            })
+          }
         >
           <motion.div
             className={`w-[58px] h-[58px] rounded-full bg-[rgba(51,51,255,0.6)] cursor-pointer border border-[rgb(51,51,255)] pt-18 px-16 fixed top-1/2 right-[70px]`}
             onClick={() => {
               setPage(page + 1 > 4 ? 1 : page + 1);
             }}
+            animate={rBtnControl}
           >
             <img
               src="/static/svg/arrow.svg"
